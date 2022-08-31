@@ -1,25 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System.Xml;
-using System.IO;
 using System;
-using System.Globalization;
+using System.Collections.Generic;
+using System.IO;
+using System.Xml;
+using UnityEngine;
 
 
 
 [Serializable]
 public class ParseXML : MonoBehaviour
 {
+    public List<Vector3> DotList = new List<Vector3>();
 
-    private List<Vector3> DotList = new List<Vector3>();
-
-    private int segmentIndex = 0;
-    void Start()
+    void Awake()
     {
-        parseXml();
+        ParseXml();
     }
-    void parseXml()
+    void ParseXml()
     {
         string filePath = Application.dataPath + "/Resources/Spline.xml";//расположение xml
 
@@ -28,7 +24,7 @@ public class ParseXML : MonoBehaviour
             XmlDocument xmlDoc = new XmlDocument();
             xmlDoc.Load(filePath);
             XmlNodeList node = xmlDoc.SelectSingleNode("Сплайн").ChildNodes;
-            Debug.Log("Parsing Success");
+            Debug.Log("++Parsing Success++");
 
             // Обход узлов
             foreach (XmlElement Segment in node)
@@ -68,16 +64,13 @@ public class ParseXML : MonoBehaviour
                             var DotPoz = new Vector3(X, Y, Z);
                             DotList.Add(DotPoz);
 
-                            Debug.Log($"{element.Name}|{x}|{y}{z}");
+                            Debug.Log($"{element.Name}|{x}|{y}|{z}");
                         }
-                        catch(FormatException)
+                        catch (FormatException)
                         {
 
                         }
                     }
-                   
-                    
-                    DotList.Clear();
                 }
             }
         }
