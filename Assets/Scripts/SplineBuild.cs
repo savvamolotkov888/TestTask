@@ -2,10 +2,11 @@ using Dreamteck.Splines;
 using UnityEngine;
 
 [RequireComponent(typeof(SplineComputer))]
+[RequireComponent(typeof(SplinePositioner))]
 
 public class SplineBuild : MonoBehaviour
 {
-    [SerializeField] private SplineComputer spline { get; set; }
+    public SplineComputer spline { get; private set; }
     [SerializeField] private ParseXML parser;
     private float PointsSize = 1;
     private Vector3 PointsNormal = new Vector3(0, 1, 0);
@@ -13,12 +14,9 @@ public class SplineBuild : MonoBehaviour
     private void Awake()
     {
         spline = this.GetComponent<SplineComputer>();
-
-    }
-    void Start()
-    {
         Build(spline, ref parser);
     }
+  
 
     private void Build(SplineComputer spline, ref ParseXML dotObj)
     {
